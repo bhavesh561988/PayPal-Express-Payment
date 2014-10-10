@@ -14,7 +14,7 @@ class Pr extends CI_Controller {
 		$this->load->model('front_model');
 
 		/* initialize Paypal recurring library*/
-		$param = array('yolobiz_api1.gmail.com','1391084658','AFcWxV21C7fd0v3bYYYRCpSSRl31APVugouZpyvLIc0lQmPFHCBTU2iT');
+		$param = array('biz_api.gmail.com','13********','AFcWxV21C7fd0***********************8');
 		$this->load->library('Paypal_Recurring',$param,'pr');
 	}
 
