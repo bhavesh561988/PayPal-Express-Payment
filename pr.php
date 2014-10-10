@@ -26,8 +26,8 @@ class Pr extends CI_Controller {
 	/* Method for Start Recurring Payment*/
 	function dopayment(){
 		$plan_info 	  	 = $this->session->userdata('upgrade_plan_details');
-		$userInfo 	 	   	 = $this->commonmodel->get_item_by_iUserId('user',$this->session->userdata('YoloId'));
-		$plan_payment_info  	= $this->commonmodel->get_item_by_iUserId('plan_payment',$this->session->userdata('YoloId'));
+		$userInfo 	 	   	 = $this->commonmodel->get_item_by_iUserId('user',$this->session->userdata('Id'));
+		$plan_payment_info  	= $this->commonmodel->get_item_by_iUserId('plan_payment',$this->session->userdata('Id'));
 		$profile_start_date 		= date("Y-m-d H:i:s");
 		$billing_period 		= 'Day';
 		$billing_frequency 		= '1';
@@ -108,7 +108,7 @@ class Pr extends CI_Controller {
 				'eSubscription_mode' => $eSubscription_mode,
 				);
 			$this->db->set($BuisnessData);
-			$this->db->where('iUserId',$this->session->userdata('YoloId'));
+			$this->db->where('iUserId',$this->session->userdata('Id'));
 			$this->db->update('business');
 
         //Load bayur data using profile Id
@@ -116,7 +116,7 @@ class Pr extends CI_Controller {
 
 			/*Update  plan_payment table*/
 			$planTabledata = array(
-				'iUserId'     => $this->session->userdata('YoloId'),
+				'iUserId'     => $this->session->userdata('Id'),
 				'iPlanId'     => $plan_info['id'],
 				'iTrans_id'   => @$paypal_recurring_transactionid,
 				'fAmount'     => $getBuyerDetails['AMT'],
@@ -128,7 +128,7 @@ class Pr extends CI_Controller {
 
 			/* update user table */
 			$userTabledata = array('recurring_profile_id'=> $getBuyerDetails['PROFILEID']);
-			$this->commonmodel->update_by_iUserId('user',$this->session->userdata('YoloId'),$userTabledata);
+			$this->commonmodel->update_by_iUserId('user',$this->session->userdata('Id'),$userTabledata);
 
 			/*SEND E-MAIL*/
 
@@ -141,7 +141,7 @@ class Pr extends CI_Controller {
                         {
                             $this->data['content_message'] = 'Este email tem o unico intuito de notificá-lo de que seu plano foi atualizado com sucesso.Veja abaixo a sua Identificação de Pagamento';
                             $this->data['text_hi'] = 'Ola,';
-                            $this->data['text_welcome'] = 'Bem-vindo ao Hinter App - Serviço de Notificação de pagamento.';
+                            $this->data['text_welcome'] = 'Bem-vindo ao  App - Serviço de Notificação de pagamento.';
                             $this->data['text_TransactionID'] = 'Identificação de Pagamento:';
                             $this->data['text_refer'] = 'Por favor, consulte o FAQ Termos e privacidade para obter mais informações sobre este serviço ';
                             $this->data['text_thanks'] = 'Obrigado';
@@ -150,7 +150,7 @@ class Pr extends CI_Controller {
                         {
                             $this->data['content_message'] = 'Esta es una notificación que el upgrade de su plan para los próximos 28 días se concluyó de forma exitosa. Encuentre a continuación el comprobante de su transacción.';
                             $this->data['text_hi'] = 'Hola,';
-                            $this->data['text_welcome'] = 'Bienvenido a Hinter App – servicio de Notificación de Pago.';
+                            $this->data['text_welcome'] = 'Bienvenido a  App – servicio de Notificación de Pago.';
                             $this->data['text_TransactionID'] = 'Transacción:';
                             $this->data['text_refer'] = 'Para obtener informaciones adicionales, vea nuestra área de preguntas frecuentes (FAQ\'s), Términos o Privacidad.';
                             $this->data['text_thanks'] = 'Gracias';
@@ -159,7 +159,7 @@ class Pr extends CI_Controller {
                         {
                             $this->data['content_message'] = 'This is to notify you that your plan has been successfully changed. Please find below your payment id';
                             $this->data['text_hi'] = 'Hi,';
-                            $this->data['text_welcome'] = 'Welcome to the Hinter App - Payment Notification service.';
+                            $this->data['text_welcome'] = 'Welcome to the  App - Payment Notification service.';
                             $this->data['text_TransactionID'] = 'Payment ID:';
                             $this->data['text_refer'] = 'Please refer to FAQ\'s, Terms and Privacy for additional information regarding this service';
                             $this->data['text_thanks'] = 'Thank you';
@@ -168,10 +168,10 @@ class Pr extends CI_Controller {
                         $message = $this->load->view('mail/subscription',$this->data,TRUE);
 
 			$this->email->initialize(array('mailtype' => 'html'));
-			$uid = $this->session->userdata('YoloId');
-			$this->email->from($this->config->item('mail_from'), 'Hinter App Payment Notification');
+			$uid = $this->session->userdata('Id');
+			$this->email->from($this->config->item('mail_from'), ' App Payment Notification');
 			$this->email->to(trim($userEmail));
-			$this->email->cc('bhavesh.khanpara@indianic.com');
+			$this->email->cc('bhavesh561988@gmail.com');
 			$this->email->subject("$uid - PAYMENT SUCESS");
 			$this->email->message($message);
 			$this->email->send();
