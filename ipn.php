@@ -1,5 +1,5 @@
 <?php
-/*Controller for Manage Payment for Hinter App Yolo Business Users
+/*Controller for Manage Payment for  App Yolo Business Users
 */
 class Ipn extends CI_Controller {
 
@@ -147,7 +147,7 @@ function index(){
 
                   /* Send mail */
                   /*$message = 'subscr_payment else if condition';
-                  $this->email->from($this->config->item('mail_from'), 'Hinter-App Auto Upgrade Plan');
+                  $this->email->from($this->config->item('mail_from'), 'App Auto Upgrade Plan');
                   $this->email->to(trim($userDetails->vEmail));
                   $this->email->subject("User $uid - Your Plan will be auto subscribe for next 28 days");	                            $this->email->message($message);
                   $this->email->send();*/
@@ -157,7 +157,7 @@ function index(){
 
                   $message = $this->load->view('mail/subscription',$this->data,TRUE);
                   $this->email->initialize(array('mailtype' => 'html'));
-                  $this->email->from($this->config->item('mail_from'), 'Hinter App - Payment  Recurring Notification');
+                  $this->email->from($this->config->item('mail_from'), 'App - Payment  Recurring Notification');
                   $this->email->to(trim($userDetails->vEmail));
                   $this->email->cc('bhavesh.khanpara@indianic.com');
                   $this->email->subject("$uid - (M)Your Plan will be auto subscribe for next 28 days");
@@ -227,7 +227,7 @@ function index(){
                   $message = $this->load->view('mail/subscription',$this->data,TRUE);
                   $this->email->initialize(array('mailtype' => 'html'));
                   $uid = $userId;
-                  $this->email->from($this->config->item('mail_from'), 'Hinter App - Payment Recurring Notification');
+                  $this->email->from($this->config->item('mail_from'), ' App - Payment Recurring Notification');
                   $this->email->to($userIndividual_user_info->vEmail);
                   $this->email->cc('bhavesh.khanpara@indianic.com');
                   $this->email->subject("$uid - (A)Your Plan will be auto subscribe for next 28 days");
